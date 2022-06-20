@@ -13,7 +13,11 @@ def validate_user(username, minlen):
     if len(username) < minlen:
         return False
     # Usernames can only use letters, numbers, dots and underscores
-    if not re.match('^[a-z0-9._]*$', username):
+    #Fix the bug on the code, Use the isalnum() method in the condition to
+    #return True if the  first character of the username is alphanumeric,
+    #meaning alphabet letter (a-z) and numbers (0-9)
+    #if not re.match('^[a-z0-9._]*$', username):
+    if not username[0].isalnum():
         return False
     # Usernames can't begin with a number
     if username[0].isnumeric():
@@ -21,4 +25,7 @@ def validate_user(username, minlen):
     return True
 
 
-
+print(validate_user("blue.kale", 3)) # True
+print(validate_user(".blue.kale", 3)) # Currently True, should be False
+print(validate_user("red_quinoa", 4)) # True
+print(validate_user("_red_quinoa", 4)) # Currently True, should be False
